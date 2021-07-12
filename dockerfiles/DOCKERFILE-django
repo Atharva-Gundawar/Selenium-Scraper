@@ -1,0 +1,19 @@
+# charge the name of this file to DOCKERFILE-django and then delete this line.
+# run using `docker build --tag python-docker .`
+
+FROM python:3.7
+MAINTAINER Atharva Gundawar <atharva.n.gundawar@gmail.com>
+
+ARG DJANGO_SECRET_KEY
+
+RUN mkdir -p /usr/src/app
+
+COPY ./_app /usr/src/app
+COPY Pipfile /usr/src/app/
+COPY Pipfile.lock /usr/src/app/
+
+WORKDIR /usr/src/app
+
+RUN pip install pipenv
+RUN pipenv install --system --deploy
+RUN python manage.py collectstatic --no-input

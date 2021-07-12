@@ -1,0 +1,15 @@
+# Chnage the name of this file to DOCKERFILE then delete this line.
+FROM python:3.7.2-slim
+LABEL maintainer="Atharva Gundawar atharva.n.gundawar@gmail.com"
+
+EXPOSE 8000
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+ENTRYPOINT [ "streamlit", "run"]
+CMD ["/src/main.py"]
